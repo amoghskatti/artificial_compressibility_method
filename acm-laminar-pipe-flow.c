@@ -10,7 +10,7 @@ int main()
     double v[igrid+1][jgrid],vo[igrid+1][jgrid];
     double p[igrid+1][jgrid+1],po[igrid+1][jgrid+1];
     double m[igrid][jgrid];
-    double Re = 100.0
+    double Re = 100.0;
     double delta = 0.5;
     double error = 1.0;
     double dx = 16.0/(igrid-1), dy=1.0/(jgrid-1), dt=0.001;
