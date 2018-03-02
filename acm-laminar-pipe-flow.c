@@ -10,9 +10,7 @@ int main()
     double v[igrid+1][jgrid],vo[igrid+1][jgrid];
     double p[igrid+1][jgrid+1],po[igrid+1][jgrid+1];
     double m[igrid][jgrid];
-    double rho = 1.0;
-    double eta = 0.0089;
-    double gamma = eta/rho;
+    double Re = 100.0
     double delta = 0.5;
     double error = 1.0;
     double dx = 16.0/(igrid-1), dy=1.0/(jgrid-1), dt=0.001;
@@ -74,8 +72,8 @@ int main()
             {
                 u[i][j] = u[i][j]-(dt/dx/dy)*( (((u[i+1][j]*u[i+1][j])-(u[i-1][j]*u[i-1][j]))*dy/(2.0))
                                        + (((u[i][j]+u[i][j+1])*(v[i][j]+v[i+1][j]) - (u[i][j]+u[i][j-1])*(v[i][j-1]+v[i+1][j-1]))*dx/(4.0))
-                                       + (1/rho)*((p[i+1][j]-p[i][j])*dy)
-                                       - (gamma/1.0)*(((u[i+1][j]-2.0*u[i][j]+u[i-1][j])*dy/(dx))+((u[i][j+1]-2.0*u[i][j]+u[i][j-1])*dx/(dy))) );
+                                       + ((p[i+1][j]-p[i][j])*dy)
+                                       - (1.0/Re)*(((u[i+1][j]-2.0*u[i][j]+u[i-1][j])*dy/(dx))+((u[i][j+1]-2.0*u[i][j]+u[i][j-1])*dx/(dy))) );
             }
         }
 
@@ -85,8 +83,8 @@ int main()
             u[0][j] = 0.2;
             u[igrid-1][j] = u[igrid-1][j]-(dt/dx/dy)*( (((u[igrid-1][j]*u[igrid-1][j])-(u[igrid-2][j]*u[igrid-2][j]))*dy)
                                        + (((u[igrid-1][j]+u[igrid-1][j+1])*(v[igrid-1][j]+v[igrid][j]) - (u[igrid-1][j]+u[igrid-1][j-1])*(v[igrid-1][j-1]+v[igrid][j-1]))*dx/(4.0))
-                                       + (1/rho)*((p[igrid][j]-p[igrid-1][j])*dy)
-                                       - (gamma/1.0)*(((u[igrid-1][j]-2.0*u[igrid-2][j]+u[igrid-3][j])*dy/(dx))+((u[igrid-1][j+1]-2.0*u[igrid-1][j]+u[igrid-1][j-1])*dx/(dy))) );
+                                       + ((p[igrid][j]-p[igrid-1][j])*dy)
+                                       - (1.0/Re)*(((u[igrid-1][j]-2.0*u[igrid-2][j]+u[igrid-3][j])*dy/(dx))+((u[igrid-1][j+1]-2.0*u[igrid-1][j]+u[igrid-1][j-1])*dx/(dy))) );
         }
 
         for(i=0;i<=igrid-1;i++)
@@ -104,8 +102,8 @@ int main()
             {
                 v[i][j] = v[i][j]-dt*( (((v[i][j+1]*v[i][j+1])-(v[i][j-1]*v[i][j-1]))*dx/(2.0))
                                        + (((v[i][j]+v[i+1][j])*(u[i][j]+u[i][j+1]) - (v[i][j]+v[i-1][j])*(u[i-1][j]+u[i-1][j+1]))*dy/(4.0))
-                                       + (1/rho)*((p[i][j+1]-p[i][j])*dx)
-                                       - gamma*(((v[i][j+1]-2.0*v[i][j]+v[i][j-1])*dx/(dy))+((v[i+1][j]-2.0*v[i][j]+v[i-1][j])*dy/(dx))) );
+                                       + ((p[i][j+1]-p[i][j])*dx)
+                                       - (1.0/Re)*(((v[i][j+1]-2.0*v[i][j]+v[i][j-1])*dx/(dy))+((v[i+1][j]-2.0*v[i][j]+v[i-1][j])*dy/(dx))) );
             }
         }
 
